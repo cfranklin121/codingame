@@ -27,7 +27,7 @@ check = False
 pair1 = False
 pair2 = False
 print(num_of_possible_fathers, type(num_of_possible_fathers))
-for i in range(num_of_possible_fathers):
+for i in range(num_of_possible_fathers - 3):
     
     a_possible_father = input()
     #print(a_possible_father, type(a_possible_father))
@@ -48,7 +48,7 @@ for i in range(num_of_possible_fathers):
         if pair[1] in mother_chrompairs[a] or pair[1] in mother_chrompairs[a+1]:
             x = 0
         print("compare ", pair[x])
-        if pair[x] in father_chrompairs[a] or pair[x] in father_chrompairs[a+1]:
+        if  father_chrompairs[a] in pair or father_chrompairs[a+1] in pair:
             print(f"Match pair{[x]} ", pair[x], father_name, father_chrompairs[a], father_chrompairs[a+1])
             
         else:
