@@ -12,7 +12,7 @@ def get_father_info(person):
 
 mother = input()
 print(mother, type(mother))
-mother_chrompairs = get_mother_child_chromPairs(mother)
+mother_chrompairs = " ".join(get_mother_child_chromPairs(mother))
 #print("Mother ChromPairs: ", mother_chrompairs)
 
 child = input()
@@ -21,9 +21,10 @@ child_chrompairs = get_mother_child_chromPairs(child)
 #print("Child ChromPairs: ", child_chrompairs)
 
 num_of_possible_fathers = int(input())
-
+x = 0
 check = False
-
+pair1 = False
+pair2 = False
 print(num_of_possible_fathers, type(num_of_possible_fathers))
 for i in range(num_of_possible_fathers):
     
@@ -33,17 +34,21 @@ for i in range(num_of_possible_fathers):
     #print(father_name)
     #print(father_chrompairs)
 
-    
+    pair1 = False
+    pair2 = False
     for pair in child_chrompairs:
         #false = 1st pair. true = 2nd pair
-        print(check)
-        print(pair[0], pair[1])
-        print("father: ", father_chrompairs)
+        #print(check)
+        #print(pair[0], pair[1])
+        #print("father: ", father_chrompairs)
         
-        pair1 = False
-        pair2 = False
-        if pair[0] in father_chrompairs or pair[1] in father_chrompairs:
-            print("pair ", pair, "father ", father_chrompairs)
+        if pair[0] in mother_chrompairs:
+            x = 1
+        else:
+            x = 0
+        
+        if pair[x] in father_chrompairs:
+            print(f"pair{[x]} ", pair[x], father_name, father_chrompairs)
             if check == False:
                 pair1 = True
             else:
