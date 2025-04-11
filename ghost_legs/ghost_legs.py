@@ -14,7 +14,7 @@ for i in range(h):
 
 for x in range(1, w+1, 3):
     start = line[0][x]
-    for i in range(2, h, 1):
+    for i in range(1, h, 1):
         
         if line[i][x+1] == "-":
                 x += 3
