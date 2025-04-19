@@ -21,46 +21,48 @@ for i in range(h+1):
             else:
                 box[i].append(" ")
 
-p = 2
-
-y = h - 1
-full = False
-
-a = 0
 for i in range(n):
     placed = False
     inputs = input().split()
     s = inputs[0]
     p = int(inputs[1])
     x = p + 1
+    y = 0
     while not placed:
         if s.isupper():
             if box[y][x] == " ":
-                box[y][x] = s
-                placed = True
+                pass
             elif x-1 != 0 and box[y][x-1] == " ":
-                box[y][x-1] = s
-                placed = True
+                x = x-1
             elif x+1 != w+1 and box[y][x+1] == " ":
-                box[y][x+1] = s
-                placed = True
+                x = x+1
             else:
                 y -= 1
+                box[y][x] = s
+                placed = True
+            
+            if y == h - 1:
+                box[y][x] = s
+                placed = True
+            y += 1
 
         elif s.islower():
             if box[y][x] == " ":
-                box[y][x] = s
-                placed = True
+                pass
             elif x+1 != w+1 and box[y][x+1] == " ":
-                box[y][x+1] = s
-                placed = True
+                x = x+1
             elif x-1 != 0 and box[y][x-1] == " ":
-                box[y][x-1] = s
-                placed = True
+                x = x-1
             else:
                 y -= 1
+                box[y][x] = s
+                placed = True
+            
+            if y == h - 1:
+                box[y][x] = s
+                placed = True
+            y += 1
 
-    a += 2
 #Print box    
 for i in range(h+1):
     for x in range(w+2):
