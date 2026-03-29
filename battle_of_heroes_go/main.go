@@ -57,7 +57,7 @@ func battleOfHeroes(stack1Data, stack2Data string) []string {
 
 		fmt.Printf("%s\n", "----------") //Mid Round Seperator
 		if stack2.amount <= 0 {
-			fmt.Printf("%s won! %d unit(s) left", stack1.name, stack1.amount)
+			fmt.Printf("%s won! %d unit(s) left\n", stack1.name, stack1.amount)
 			break
 		}
 
@@ -65,7 +65,7 @@ func battleOfHeroes(stack1Data, stack2Data string) []string {
 
 		fmt.Printf("%s\n", "##########") //End or Round Seperator
 		if stack1.amount <= 0 {
-			fmt.Printf("%s won! %d unit(s) left", stack2.name, stack2.amount)
+			fmt.Printf("%s won! %d unit(s) left\n", stack2.name, stack2.amount)
 			break
 		}
 
@@ -84,7 +84,7 @@ func fight(attackers, defenders data) (data, data) {
 	defenders.totalHealth -= damage
 	newAmount := defenders.totalHealth / defenders.health
 
-	if defenders.totalHealth%defenders.health != 0 {
+	if defenders.totalHealth%defenders.health > 0 {
 		newAmount++
 	}
 	if newAmount <= 0 {
