@@ -7,10 +7,11 @@ import (
 )
 
 type data struct {
-	name   string
-	amount int
-	health int
-	damage int
+	name        string
+	amount      int
+	health      int
+	damage      int
+	totalHealth int
 }
 
 func main() {
@@ -21,7 +22,6 @@ func main() {
 }
 
 func battleOfHeroes(stack1Data, stack2Data string) []string {
-
 	stack1DataSlice := strings.Split(stack1Data, ";")
 	stack2DataSlice := strings.Split(stack2Data, ";")
 
@@ -34,39 +34,42 @@ func battleOfHeroes(stack1Data, stack2Data string) []string {
 	damage2, _ := strconv.Atoi(stack2DataSlice[3])
 
 	stack1 := data{
-		name:   stack1DataSlice[0],
-		amount: amount1,
-		health: health1,
-		damage: damage1,
+		name:        stack1DataSlice[0],
+		amount:      amount1,
+		health:      health1,
+		damage:      damage1,
+		totalHealth: amount1 * health1,
 	}
 	stack2 := data{
-		name:   stack2DataSlice[0],
-		amount: amount2,
-		health: health2,
-		damage: damage2,
+		name:        stack2DataSlice[0],
+		amount:      amount2,
+		health:      health2,
+		damage:      damage2,
+		totalHealth: amount2 * health2,
 	}
 
-	fmt.Println(stack1)
-	fmt.Println(stack2)
-
 	//Fight
-	cont := true
 	i := 1
-	for cont {
+	for {
 		fmt.Printf("Round %d\n", i)
 
 		stack1, stack2 = fight(stack1, stack2)
 
 		fmt.Printf("%s\n", "----------") //Mid Round Seperator
+		if stack2.amount <= 0 {
+			fmt.Printf("%s won! %d unit(s) left", stack1.name, stack1.amount)
+			break
+		}
 
 		stack2, stack1 = fight(stack2, stack1)
 
 		fmt.Printf("%s\n", "##########") //End or Round Seperator
+		if stack1.amount <= 0 {
+			fmt.Printf("%s won! %d unit(s) left", stack2.name, stack2.amount)
+			break
+		}
 
 		i++
-		if i >= 11 {
-			cont = false
-		}
 	}
 
 	results := make([]string, 10)
@@ -76,18 +79,20 @@ func battleOfHeroes(stack1Data, stack2Data string) []string {
 }
 
 func fight(attackers, defenders data) (data, data) {
-	defendersHealthTotal := defenders.amount * defenders.health
-
 	damage := attackers.amount * attackers.damage
-	fmt.Printf("%d %s(s) attack %d %s(s) dealing %d damage\n", attackers.amount, attackers.name, defenders.amount, defenders.name, damage)
-	defendersHealthTotal -= damage
+	fmt.Printf("%d %s(s) attack(s) %d %s(s) dealing %d damage\n", attackers.amount, attackers.name, defenders.amount, defenders.name, damage)
+	defenders.totalHealth -= damage
+	newAmount := defenders.totalHealth / defenders.health
 
-	newAmount := defendersHealthTotal / defenders.health
-	if defendersHealthTotal%defenders.health != 0 {
+	if defenders.totalHealth%defenders.health != 0 {
 		newAmount++
 	}
-	fmt.Printf("%d unit(s) perish\n", defenders.amount-newAmount)
-	defenders.amount = newAmount
+	if newAmount <= 0 {
+		fmt.Printf("%d unit(s) perish\n", defenders.amount)
+	} else {
+		fmt.Printf("%d unit(s) perish\n", defenders.amount-newAmount)
+	}
 
+	defenders.amount = newAmount
 	return attackers, defenders
 }

@@ -14,6 +14,9 @@ func TestBattleOfHeroes(t *testing.T) {
 			input:    []string{"Minotaur;20;35;10", "Unicorn;16;40;14"},
 			expected: false,
 		},
+		{
+			input: []string{"Crusader;100;65;20", "Bone dragon;1;150;45"},
+		},
 	}
 
 	var results []string
