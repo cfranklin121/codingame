@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"slices"
 	"strconv"
 	"strings"
@@ -11,13 +10,11 @@ func main() {
 }
 
 func dynamicSorting(input []string) []string {
-	for _, line := range input {
-		fmt.Println("input string:", line)
-	}
 	start := 0
 	sorting := input[0]
-	//types := strings.Split(input[1], ",")
+	types := strings.Split(input[1], ",")
 	n := input[2]
+	nInt, _ := strconv.Atoi(n)
 	lines := []string{}
 
 	expressions := []string{}
@@ -33,30 +30,29 @@ func dynamicSorting(input []string) []string {
 	}
 	expressions = append(expressions, sorting[start:])
 
-	for i := 3; i < int(n[0]-'0')+3; i++ {
+	for i := 3; i < nInt+3; i++ {
 		lines = append(lines, input[i])
 	}
 
 	slices.Reverse(expressions)
+	slices.Reverse(types)
+	i := 0
 	for _, expression := range expressions {
 		slices.SortFunc(lines, func(a, b string) int {
 			sortDirection := expression[0]
-			exp := expression[1:]
-			index_a := strings.Index(a, exp)
-			index_b := strings.Index(b, exp)
+
+			index_a := strings.Index(a, expression[1:])
+			index_b := strings.Index(b, expression[1:])
 
 			splitA := strings.Split(a[index_a:], ",")
 			splitB := strings.Split(b[index_b:], ",")
-
-			fmt.Println(splitA)
-			fmt.Println(splitB)
 
 			toSortA := splitA[0]
 			toSortB := splitB[0]
 
 			var intA int
 			var intB int
-			if exp == "age" {
+			if types[i] == "int" {
 				temp := strings.Split(toSortA, ":")
 				intA, _ = strconv.Atoi(temp[1])
 
@@ -72,7 +68,12 @@ func dynamicSorting(input []string) []string {
 					return 0
 				}
 				if sortDirection == '-' {
-					return strings.Compare(b[index_b:], a[index_a:])
+					if intA < intB {
+						return 1
+					} else if intA > intB {
+						return -1
+					}
+					return 0
 				}
 				return 0
 
@@ -86,11 +87,14 @@ func dynamicSorting(input []string) []string {
 			}
 			return 0
 		})
+		i++
 	}
 
 	returnVals := []string{}
 	for _, val := range lines {
-		returnVals = append(returnVals, string(val[3]))
+		id := strings.Split(val, ",")
+
+		returnVals = append(returnVals, id[0][3:])
 	}
 	return returnVals
 }
