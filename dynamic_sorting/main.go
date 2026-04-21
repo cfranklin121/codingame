@@ -41,18 +41,15 @@ func dynamicSorting(input []string) []string {
 		slices.SortFunc(lines, func(a, b string) int {
 			sortDirection := expression[0]
 
-			index_a := strings.Index(a, expression[1:])
-			index_b := strings.Index(b, expression[1:])
-
-			splitA := strings.Split(a[index_a:], ",")
-			splitB := strings.Split(b[index_b:], ",")
+			splitA := strings.Split(a[strings.Index(a, expression[1:]):], ",")
+			splitB := strings.Split(b[strings.Index(b, expression[1:]):], ",")
 
 			toSortA := splitA[0]
 			toSortB := splitB[0]
 
-			var intA int
-			var intB int
 			if types[i] == "int" {
+				var intA int
+				var intB int
 				temp := strings.Split(toSortA, ":")
 				intA, _ = strconv.Atoi(temp[1])
 
@@ -77,15 +74,16 @@ func dynamicSorting(input []string) []string {
 				}
 				return 0
 
-			}
+			} else {
 
-			if sortDirection == '+' {
-				return strings.Compare(a[index_a:], b[index_b:])
+				if sortDirection == '+' {
+					return strings.Compare(toSortA, toSortB)
+				}
+				if sortDirection == '-' {
+					return strings.Compare(toSortB, toSortA)
+				}
+				return 0
 			}
-			if sortDirection == '-' {
-				return strings.Compare(b[index_b:], a[index_a:])
-			}
-			return 0
 		})
 		i++
 	}
