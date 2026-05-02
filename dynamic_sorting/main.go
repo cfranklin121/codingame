@@ -34,8 +34,8 @@ func dynamicSorting(input []string) []string {
 		lines = append(lines, input[i])
 	}
 
-	slices.Reverse(expressions)
-	slices.Reverse(types)
+	//slices.Reverse(expressions)
+	//slices.Reverse(types)
 	i := 0
 	for _, expression := range expressions {
 		slices.SortFunc(lines, func(a, b string) int {

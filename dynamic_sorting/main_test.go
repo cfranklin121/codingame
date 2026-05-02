@@ -264,7 +264,7 @@ func TestDynamicSorting(t *testing.T) {
 		if len(result) != len(c.expected) {
 			fmt.Printf("Expected: %s\n", c.expected)
 			fmt.Printf("Actual  : %s\n", result)
-			fmt.Println("FAIL")
+			fmt.Println("====FAIL====")
 			pass = false
 			continue
 		}
@@ -280,12 +280,12 @@ func TestDynamicSorting(t *testing.T) {
 		if match {
 			fmt.Printf("Expected: %s\n", c.expected)
 			fmt.Printf("Actual  : %s\n", result)
-			fmt.Println("PASS")
+			fmt.Println("====PASS====")
 			pass = true
 		} else {
 			fmt.Printf("Expected: %s\n", c.expected)
 			fmt.Printf("Actual  : %s\n", result)
-			fmt.Println("FAIL")
+			fmt.Println("====FAIL====")
 			pass = false
 		}
 
