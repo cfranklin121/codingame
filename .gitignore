@@ -1,6 +1,7 @@
 __pycache__/
 
 .vscode
+launch.json
 
 input*
 output*
@@ -10,3 +11,5 @@ output*
 *.txt.un~
 *.swp
 *.exe
+
+.env
