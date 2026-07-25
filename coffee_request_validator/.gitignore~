@@ -1,5 +1,19 @@
 .vscode
 
-input*
+input1.txt
+input2.txt
+input3.txt
+input4.txt
+input5.txt
 
-output*
+output1.txt
+output2.txt
+output3.txt
+output4.txt
+output5.txt
+
+*~
+*.un~
+*.txt.un~
+*.swp
+*.exe

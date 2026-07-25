@@ -12,3 +12,8 @@ output3.txt
 output4.txt
 output5.txt
 
+*~
+*.un~
+*.txt.un~
+*.swp
+*.exe
