@@ -10,6 +10,7 @@
             "request": "launch",
             "mode": "debug", 
             "program": "${fileDirname}",
+            "console": "integratedTerminal",
             "args": ["19", "DECAFBAD00744C23A5F"],
         }
     ]
