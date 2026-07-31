@@ -21,12 +21,16 @@ func main() {
 	N = nInput() //DEBUG Input
 
 	for i := 0; i < N; i++ {
+		uniquevals := make(map[rune]struct{})
 		rows := 0
 		//scanner.Scan()
 		//line := scanner.Text()
 		line := lineInput(i) //DEBUG Input
 		_ = line             // to avoid unused error
 
+		for _, char := range line {
+			uniquevals[char] = struct{}{}
+		}
 		for j := 0; j < len(line); j++ {
 			if j == 0 {
 				rows = 1
@@ -34,6 +38,10 @@ func main() {
 				if rune(line[j-1]) < rune(line[j]) {
 					rows++
 				}
+			}
+			if rows > len(uniquevals) {
+				rows--
+				break
 			}
 		}
 		fmt.Println(rows)
