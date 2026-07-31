@@ -21,10 +21,22 @@ func main() {
 	N = nInput() //DEBUG Input
 
 	for i := 0; i < N; i++ {
+		rows := 0
 		//scanner.Scan()
 		//line := scanner.Text()
 		line := lineInput(i) //DEBUG Input
 		_ = line             // to avoid unused error
+
+		for j := 0; j < len(line); j++ {
+			if j == 0 {
+				rows = 1
+			} else {
+				if rune(line[j-1]) < rune(line[j]) {
+					rows++
+				}
+			}
+		}
+		fmt.Println(rows)
 	}
 
 	// Scanner error handling
