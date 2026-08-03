@@ -6,11 +6,6 @@ import (
 	"os"
 )
 
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
-
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Buffer(make([]byte, 1000000), 1000000)
@@ -34,31 +29,26 @@ func main() {
 
 		var largestIndex int
 		for j := 0; j < len(line); j++ {
-			if j == 0 {
+			if j == 0 { //-----------------------------------------------First Container
 				rows = 1
 				topOfStack = append(topOfStack, line[j])
 				largestIndex = len(topOfStack) - 1
-			} else if line[j] < line[j-1] {
-				if line[j] > topOfStack[largestIndex] {
-					topOfStack = append(topOfStack, line[j])
-					largestIndex = len(topOfStack) - 1
-				} else {
-					var diff byte
-					smallestDif := byte(27)
-					smallestIndex := 0
-					for k := range topOfStack {
-						diff = topOfStack[largestIndex] - topOfStack[k]
-						if diff < smallestDif {
-							smallestDif = diff
-							smallestIndex = k
-						}
+			} else if line[j] < topOfStack[largestIndex] { //------------Larger Container
+				var diff int
+				smallestDif := 27
+				smallestIndex := 0
+				for k := range topOfStack {
+					diff = int(topOfStack[k]) - int(line[j])
+					if diff < smallestDif && diff >= 0 {
+						smallestDif = diff
+						smallestIndex = k
 					}
-					topOfStack[smallestIndex] = line[j]
 				}
-
-			} else if line[j] > line[j-1] {
+				topOfStack[smallestIndex] = line[j]
+			} else if line[j] > topOfStack[largestIndex] { //---------------Smaller Container
 				rows++
 				topOfStack = append(topOfStack, line[j])
+				largestIndex = len(topOfStack) - 1
 			}
 			if rows > len(uniqueVals) {
 				rows--
@@ -74,21 +64,29 @@ func main() {
 		os.Exit(1)
 	}
 
-	// fmt.Fprintln(os.Stderr, "Debug messages...")
-	fmt.Println("answer") // Write answer to stdout
 }
 
 func nInput() int {
-	return 1
+	return 15
 }
 
 func lineInput(n int) string {
 	lines := []string{
-		//"A",
-		//"CBACBACBACBACBACBA",
-		//"CCCCCBBBBBAAAAA",
-		//"BDNIDPD",
-		"CODINGAME",
+		"C",
+		"JS",
+		"VB",
+		"CPP",
+		"PHP",
+		"JAVA",
+		"PERL",
+		"RUBY",
+		"MYSQL",
+		"PYTHON",
+		"GROOVY",
+		"PASCAL",
+		"POSTGRES",
+		"HIBERNATE",
+		"KUBERNETES",
 	}
 
 	return lines[n]
