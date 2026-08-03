@@ -71,4 +71,29 @@ Output
 1
 4
 4
-4
+
+
+Psudo Code 
+
+Input loop
+    Find unique characters 
+        loop over string 
+            characters to map[string]struct{}{}
+            unique chars = len map
+    
+    var top of stack
+    var largest container
+
+    stack containers 
+        first container 
+            rows = 1
+            append top of stack
+        if next container < largest container
+            find next smallest
+                size dif 
+                index
+
+
+        eles add to new row 
+            row ++
+            append top of stack

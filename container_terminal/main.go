@@ -21,25 +21,46 @@ func main() {
 	N = nInput() //DEBUG Input
 
 	for i := 0; i < N; i++ {
-		uniquevals := make(map[rune]struct{})
+		topOfStack := []byte{}
+		uniqueVals := make(map[rune]struct{})
 		rows := 0
 		//scanner.Scan()
 		//line := scanner.Text()
 		line := lineInput(i) //DEBUG Input
-		_ = line             // to avoid unused error
 
-		for _, char := range line {
-			uniquevals[char] = struct{}{}
+		for _, char := range line { //Find unique characters
+			uniqueVals[char] = struct{}{}
 		}
+
+		var largestIndex int
 		for j := 0; j < len(line); j++ {
 			if j == 0 {
 				rows = 1
-			} else {
-				if rune(line[j-1]) < rune(line[j]) {
-					rows++
+				topOfStack = append(topOfStack, line[j])
+				largestIndex = len(topOfStack) - 1
+			} else if line[j] < line[j-1] {
+				if line[j] > topOfStack[largestIndex] {
+					topOfStack = append(topOfStack, line[j])
+					largestIndex = len(topOfStack) - 1
+				} else {
+					var diff byte
+					smallestDif := byte(27)
+					smallestIndex := 0
+					for k := range topOfStack {
+						diff = topOfStack[largestIndex] - topOfStack[k]
+						if diff < smallestDif {
+							smallestDif = diff
+							smallestIndex = k
+						}
+					}
+					topOfStack[smallestIndex] = line[j]
 				}
+
+			} else if line[j] > line[j-1] {
+				rows++
+				topOfStack = append(topOfStack, line[j])
 			}
-			if rows > len(uniquevals) {
+			if rows > len(uniqueVals) {
 				rows--
 				break
 			}
@@ -58,15 +79,15 @@ func main() {
 }
 
 func nInput() int {
-	return 5
+	return 1
 }
 
 func lineInput(n int) string {
 	lines := []string{
-		"A",
-		"CBACBACBACBACBACBA",
-		"CCCCCBBBBBAAAAA",
-		"BDNIDPD",
+		//"A",
+		//"CBACBACBACBACBACBA",
+		//"CCCCCBBBBBAAAAA",
+		//"BDNIDPD",
 		"CODINGAME",
 	}
 
